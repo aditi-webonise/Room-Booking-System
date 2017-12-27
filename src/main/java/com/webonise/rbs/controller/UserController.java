@@ -41,7 +41,7 @@ public class UserController {
         return "redirect:/user/";
     }
 
-    @RequestMapping(value = "/{operation}/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{operation}/{id}")
     public String editRemoveUser(@PathVariable("operation") String operation, @PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
 
         if(operation.equals("delete")) {
@@ -63,7 +63,7 @@ public class UserController {
         return "redirect:/user/";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     public String updateUser(@ModelAttribute("editUser") User editUser, final RedirectAttributes redirectAttributes) {
 
         if(userService.editUser(editUser)!=null) {
