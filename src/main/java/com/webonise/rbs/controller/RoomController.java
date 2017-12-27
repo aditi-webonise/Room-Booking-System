@@ -23,7 +23,7 @@ public class RoomController {
         return "viewRooms";
     }
 
-    @PostMapping("/save")
+    @PostMapping(value = "/save")
     public String saveRoom(@ModelAttribute("room") Room room, final RedirectAttributes redirectAttributes) {
         if(roomService.addRoom(room)!=null) {
             redirectAttributes.addFlashAttribute("saveRoom", "success");
@@ -33,7 +33,7 @@ public class RoomController {
         return "redirect:/room/";
     }
 
-    @RequestMapping(value = "/{operation}/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{operation}/{id}")
     public String editRemoveRoom(@PathVariable("operation") String operation, @PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
         if(operation.equals("delete")) {
             if(roomService.deleteById(id)) {
@@ -53,7 +53,7 @@ public class RoomController {
         return "redirect:/room/";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     public String updateRoom(@ModelAttribute("editRoom") Room editRoom, final RedirectAttributes redirectAttributes) {
         if(roomService.editRoom(editRoom)!=null) {
             redirectAttributes.addFlashAttribute("edit", "success");
