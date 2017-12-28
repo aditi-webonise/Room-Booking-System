@@ -3,11 +3,9 @@ package com.webonise.rbs.service;
 import com.webonise.rbs.entity.User;
 import com.webonise.rbs.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -19,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return  userRepository.findAll();
+        return userRepository.findAll();
     }
 
     @Override
@@ -40,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean deleteById(Long id) {
         User user = userRepository.findOne(id);
-        if(user!=null) {
+        if (user != null) {
             userRepository.delete(user);
             return true;
         }

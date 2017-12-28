@@ -1,6 +1,11 @@
 package com.webonise.rbs.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
@@ -27,7 +32,7 @@ public class User implements Serializable {
     private String password;
 
     @Column(name = "role_id")
-    private  Long roleId;
+    private Long roleId;
 
     public Long getId() {
         return id;
@@ -77,8 +82,3 @@ public class User implements Serializable {
         this.roleId = roleId;
     }
 }
-
-
-
-
-

@@ -8,7 +8,7 @@
         <div class="col-md-offset-3 col-md-6">
 
             <!-- Save Alert Messages -->
-            <div th:if="${saveUser eq 'unsuccess'}">
+            <div th:if="${saveUser eq 'failure'}">
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <strong>Error!</strong> Employee Data Not Saved.
                 </div>
@@ -20,7 +20,7 @@
             </div>
 
             <!-- Deletion Alert Messages -->
-            <div th:if="${deletion eq 'unsuccess'}">
+            <div th:if="${deletion eq 'failure'}">
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <strong>Error!</strong> Employee Data Not Deleted.
                 </div>
@@ -37,7 +37,7 @@
                     <strong>Error!</strong> Invalid Employee.
                 </div>
             </div>
-            <div th:if="${edit eq 'unsuccess'}">
+            <div th:if="${edit eq 'failure'}">
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <strong>Error!</strong> Employee Data Not Edited.
                 </div>
@@ -53,7 +53,7 @@
                     <h3 class="panel-title">Add Employee</h3>
                 </div>
                 <div class="panel-body">
-                    <form th:object="${user}" th:action="@{/user/save}" action="#" method="post">
+                    <form th:object="${user}" action="#" method="post">
                         <input type="text" th:field="*{employeeId}" class="form-control" placeholder="Employee Id"/>
                         <div style="clear:both; display:block;height:10px;"></div>
                         <input type="text" th:field="*{firstName}" class="form-control" placeholder="First Name"/>
@@ -64,7 +64,7 @@
                         <div style="clear:both; display:block;height:10px;"></div>
                         <input type="text" th:field="*{roleId}" class="form-control" placeholder="Role Id"/>
                         <div style="clear:both; display:block;height:10px;"></div>
-                        <input type="submit" class="btn btn-danger pull-right" value="Save">
+                        <input type="submit" class="btn btn-danger pull-right" value="Save"/>
                     </form>
                 </div>
 
@@ -97,9 +97,17 @@
                             <td th:text="${user.firstName}"></td>
                             <td th:text="${user.lastName}"></td>
                             <td th:text="${user.roleId}"></td>
-                            <td align="center">
-                                <a th:href="@{/user/edit/{id}(id=${user.id})}">EDIT</a> &nbsp; &nbsp;
-                                <a th:href="@{/user/delete/{id}(id=${user.id})}">DELETE</a>
+                            <td>
+                                <form action="#" th:action="@{user/{id}(id=${user.id})}" th:method="get" >
+                                    <input type="hidden" value="edit" />
+                                    <button type="submit" id="submitButton">EDIT</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="#" th:action="@{user/{id}(id=${user.id})}" th:method="delete" >
+                                    <input type="hidden" value="delete" />
+                                    <button type="submit" id="submitButton">DELETE</button>
+                                </form>
                             </td>
                         </tr>
                         </tbody>
