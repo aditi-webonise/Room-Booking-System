@@ -1,12 +1,17 @@
 package com.webonise.rbs.controller;
 
 import com.webonise.rbs.entity.Room;
-import com.webonise.rbs.service.RoomServiceImpl;
+import com.webonise.rbs.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -14,52 +19,54 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class RoomController {
 
     @Autowired
-    RoomServiceImpl roomService;
+    private RoomService roomService;
 
-    @GetMapping(value = "/",produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping
     public String savePage(Model model) {
         model.addAttribute("room", new Room());
         model.addAttribute("allRooms", roomService.getAllRooms());
         return "viewRooms";
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping
     public String saveRoom(@ModelAttribute("room") Room room, final RedirectAttributes redirectAttributes) {
-        if(roomService.addRoom(room)!=null) {
+        if(roomService.addRoom(room)!= null) {
             redirectAttributes.addFlashAttribute("saveRoom", "success");
         } else {
             redirectAttributes.addFlashAttribute("saveRoom", "failure");
         }
-        return "redirect:/room/";
+        return "redirect:/room";
     }
 
-    @GetMapping(value = "/{operation}/{id}")
-    public String editRemoveRoom(@PathVariable("operation") String operation, @PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
-        if(operation.equals("delete")) {
-            if(roomService.deleteById(id)) {
-                redirectAttributes.addFlashAttribute("deletion", "success");
-            } else {
-                redirectAttributes.addFlashAttribute("deletion", "failure");
-            }
-        } else if(operation.equals("edit")){
-            Room editRoom = roomService.findById(id);
-            if(editRoom!=null) {
-                model.addAttribute("editRoom", editRoom);
-                return "editRoom";
-            } else {
-                redirectAttributes.addFlashAttribute("status","notfound");
-            }
+    @GetMapping(value = "/{id}")
+    public String editRoom(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+        Room editRoom = roomService.findById(id);
+        if(editRoom!=null) {
+            model.addAttribute("editRoom", editRoom);
+            return "editRoom";
+        } else {
+            redirectAttributes.addFlashAttribute("status","notfound");
         }
-        return "redirect:/room/";
+        return "redirect:/room";
     }
 
-    @PostMapping(value = "/update")
+    @DeleteMapping(value = "/{id}")
+    public String deleteRoom( @PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+        if(roomService.deleteById(id)) {
+            redirectAttributes.addFlashAttribute("deletion", "success");
+        } else {
+            redirectAttributes.addFlashAttribute("deletion", "failure");
+        }
+        return "redirect:/room";
+    }
+
+    @PutMapping
     public String updateRoom(@ModelAttribute("editRoom") Room editRoom, final RedirectAttributes redirectAttributes) {
         if(roomService.editRoom(editRoom)!=null) {
             redirectAttributes.addFlashAttribute("edit", "success");
         } else {
             redirectAttributes.addFlashAttribute("edit", "failure");
         }
-        return "redirect:/room/";
+        return "redirect:/room";
     }
 } 

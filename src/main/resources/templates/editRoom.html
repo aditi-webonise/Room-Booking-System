@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Room Booking System</title>
-</head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-            <div th:if="${saveRoom eq 'failure'}">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>Error!</strong> Room Data Not Updated.
-                </div>
-            </div>
-            <div th:if="${saveRoom eq 'success'}">
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <strong>Success!</strong> Room Data Updated Successfully.
-                </div>
-            </div>
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Edit Rooms</h3>
-                </div>
-                <div class="panel-body">
-                    <form th:object="${editRoom}" th:action="@{/room/update}" action="#" method="post">
-                        <input type="hidden" th:field="*{id}"/>
-                        <input type="text" th:field="*{name}" class="form-control" placeholder="Name"/>
-                        <input type="text" th:field="*{capacity}" class="form-control" placeholder="Capacity"/>
-                        <input type="submit" class="btn btn-danger pull-right" value="Update">
-                    </form>
-                </div>
-                <div class="panel-footer">
-                    <a th:href="@{/savePage}" class="btn btn-success">Back To Room Page</a>
+    <head>
+        <title>Room Booking System</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <div th:if="${saveRoom eq 'failure'}">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>Error!</strong> Room Data Not Updated.
+                        </div>
+                    </div>
+                    <div th:if="${saveRoom eq 'success'}">
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <strong>Success!</strong> Room Data Updated Successfully.
+                        </div>
+                    </div>
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Edit Rooms</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form th:object="${editRoom}" th:action="@{/room}" th:method="put">
+                                <input type="hidden" th:field="*{id}"/>
+                                <label>Room Name</label>
+                                <input type="text" th:field="*{name}" class="form-control" placeholder="Name"/>
+                                <br/>
+                                <label>Room Capacity</label>
+                                <input type="text" th:field="*{capacity}" class="form-control" placeholder="Capacity"/>
+                                <br/>
+                                <input type="submit" class="btn btn-danger pull-right" value="Update"/>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-</body>
+    </body>
 </html>

@@ -9,18 +9,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "roles")
-public class Role implements Serializable {
+@Table(name = "events")
+public class Event implements Serializable {
 
-    private static final long serialVersionUID = -5707121987632243460L;
+    private static final long serialVersionUID = -7639142812118001991L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="role")
-    private String role;
+    @Column(name = "name")
+    private String name;
 
     public Long getId() {
         return id;
@@ -30,11 +30,11 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setName(String name) {
+        this.name = name;
     }
 }

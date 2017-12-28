@@ -1,34 +1,37 @@
 package com.webonise.rbs.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="bookings")
+@Table(name = "bookings")
 public class Booking implements Serializable {
 
-    private static final long serialVersionUID = -843414259970947020L;
+    private static final long serialVersionUID = -6864008650195849371L;
 
     @Id
     private Long id;
 
-    @Column(name="room_id")
+    @Column(name = "room_id")
     private Long roomId;
 
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(name="event_id")
+    @Column(name = "event_id")
     private Long eventId;
 
-    @Column(name="booked_from")
+    @Column(name = "booked_from")
     private Timestamp bookedFrom;
 
-    @Column(name="booked_to")
+    @Column(name = "booked_to")
     private Timestamp bookedTo;
 
-    @Column(name="status")
+    @Column(name = "status")
     private String status;
 
     public Long getId() {

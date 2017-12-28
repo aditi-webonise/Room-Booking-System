@@ -12,7 +12,7 @@ import java.util.List;
 public class RoomServiceImpl implements RoomService {
 
     @Autowired
-    RoomRepository roomRepository;
+    private RoomRepository roomRepository;
 
     @Override
     public List<Room> getAllRooms() {
