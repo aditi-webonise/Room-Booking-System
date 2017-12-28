@@ -23,6 +23,26 @@ public class BookingServiceImpl implements BookingService {
     public Booking bookRoom(Booking booking) {
         return bookingRepository.save(booking);
     }
+
+    @Override
+    public Booking findById(Long id) {
+        return bookingRepository.findOne(id);
+    }
+
+    @Override
+    public Booking editBooking(Booking booking) {
+        return bookingRepository.save(booking);
+    }
+
+    @Override
+    public Boolean deleteById(Long id) {
+        Booking booking = bookingRepository.findOne(id);
+        if (booking != null) {
+            bookingRepository.delete(booking);
+            return true;
+        }
+        return false;
+    }
 }
 
 

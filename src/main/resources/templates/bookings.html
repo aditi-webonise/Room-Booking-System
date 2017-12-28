@@ -1,42 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <title>ALL BOOKINGS</title>
+        <title>Room Booking System</title>
     </head>
     <body>
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-            <!-- Save Alert Messages -->
-            <div th:if="${saveBooking eq 'failure'}">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>Error!</strong> Room Not Booked.
-                </div>
-            </div>
-            <div th:if="${saveBooking eq 'success'}">
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <strong>Success!</strong> Room Booked Successfully.
-                </div>
-            </div>
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Book a Room</h3>
-                </div>
-                <div class="panel-body">
-                    <form th:object="${booking}" action="#" method="post">
-                        <div style="clear:both; height:10px;">
-                            <input type="text" th:field="*{roomId}" class="form-control" placeholder="Room Id"/>
-                            <input type="text" th:field="*{userId}" class="form-control" placeholder="User Id"/>
-                            <input type="text" th:field="*{eventId}" class="form-control" placeholder="Event Id"/>
-                            <input type="text" th:field="*{bookedFrom}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss"/>
-                            <input type="text" th:field="*{bookedTo}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss"/>
-                            <input type="text" th:field="*{status}" class="form-control" placeholder="status"/>
-                            <input type="submit" class="btn btn-danger pull-right" value="Save"/>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
         <div class="row"  style="margin-bottom:50px;">
             <div class="col-md-offset-2 col-md-8">
                 <div class="panel panel-success">
@@ -54,6 +21,8 @@
                                 <th>Booked From</th>
                                 <th>Booked To</th>
                                 <th>Status</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -68,9 +37,101 @@
                                 <td th:text="${booking.bookedFrom}"></td>
                                 <td th:text="${booking.bookedTo}"></td>
                                 <td th:text="${booking.status}"></td>
+                                <td>
+                                    <form action="#" th:action="@{book/{id}(id=${booking.id})}" th:method="get" >
+                                        <input type="hidden" value="edit" />
+                                        <button type="submit" id="submitButton">EDIT</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="#" th:action="@{book/{id}(id=${booking.id})}" th:method="delete" >
+                                        <input type="hidden" value="delete" />
+                                        <button type="submit" id="submitButton">DELETE</button>
+                                    </form>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <!-- Save Alert Messages -->
+                <div th:if="${saveBooking eq 'failure'}">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error!</strong> Room Not Booked.
+                    </div>
+                </div>
+                <div th:if="${saveBooking eq 'success'}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success!</strong> Room Booked Successfully.
+                    </div>
+                </div>
+                <!-- Deletion Alert Messages -->
+                <div th:if="${deletion eq 'failure'}">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error!</strong> Booking Not Deleted.
+                    </div>
+                </div>
+                <div th:if="${deletion eq 'success'}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success!</strong> Booking Deleted Successfully.
+                    </div>
+                </div>
+                <!-- Edit Alert Message -->
+                <div th:if="${edit eq 'failure'}">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error!</strong> Booking Not Updated.
+                    </div>
+                </div>
+                <div th:if="${edit eq 'success'}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success!</strong> Booking Updated Successfully.
+                    </div>
+                </div>
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Book a Room</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form th:object="${booking}" action="#" method="post">
+                            <div style="clear:both; height:10px;">
+                                <label>Booking Id</label>
+                                <input type="text" th:field="*{id}" class="form-control" placeholder="Booking Id"/>
+                                <br/><br/><br/>
+                                <label>Room</label>
+                                <select th:field="*{roomId}" class="form-control" >
+                                    <option value="1">Confrence Room</option>
+                                    <option value="2">Bean Bag Room</option>
+                                    <option value="3">Charlie Chaplin Room</option>
+                                    <option value="4">Joe Louis Room</option>
+                                </select>
+                                <br/><br/><br/>
+                                <label>User Id</label>
+                                <input type="text" th:field="*{userId}" class="form-control" placeholder="User Id"/>
+                                <br/><br/><br/>
+                                <label>Event</label>
+                                <select th:field="*{eventId}" class="form-control" >
+                                    <option value="1">Board Meeting</option>
+                                    <option value="2">Client Call</option>
+                                    <option value="3">Sprint Planning</option>
+                                    <option value="4">Scrum Meeting</option>
+                                </select>
+                                <br/><br/><br/>
+                                <label>Book from</label>
+                                <input type="datetime" th:field="*{bookedFrom}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss"/>
+                                <br/><br/><br/>
+                                <label>Book To</label>
+                                <input type="datetime" th:field="*{bookedTo}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss"/>
+                                <br/><br/><br/>
+                                <label>Status</label>
+                                <input type="text" th:field="*{status}" class="form-control" placeholder="status"/>
+                                <br/><br/><br/>
+                                <input type="submit" class="btn btn-danger pull-right" value="Save"/>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

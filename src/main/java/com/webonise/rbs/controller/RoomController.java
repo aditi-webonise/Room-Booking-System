@@ -44,8 +44,6 @@ public class RoomController {
         if(editRoom!=null) {
             model.addAttribute("editRoom", editRoom);
             return "editRoom";
-        } else {
-            redirectAttributes.addFlashAttribute("status","notfound");
         }
         return "redirect:/room";
     }

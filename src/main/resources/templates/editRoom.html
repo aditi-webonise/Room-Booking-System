@@ -25,10 +25,10 @@
                             <form th:object="${editRoom}" th:action="@{/room}" th:method="put">
                                 <input type="hidden" th:field="*{id}"/>
                                 <label>Room Name</label>
-                                <input type="text" th:field="*{name}" class="form-control" placeholder="Name"/>
+                                <input type="text" th:field="*{name}" class="form-control"/>
                                 <br/>
                                 <label>Room Capacity</label>
-                                <input type="text" th:field="*{capacity}" class="form-control" placeholder="Capacity"/>
+                                <input type="text" th:field="*{capacity}" class="form-control"/>
                                 <br/>
                                 <input type="submit" class="btn btn-danger pull-right" value="Update"/>
                             </form>
