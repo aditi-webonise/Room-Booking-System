@@ -1,11 +1,15 @@
 package com.webonise.rbs.entity;
 
 import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +26,9 @@ public class Event implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Booking> bookings;
+
     public Long getId() {
         return id;
     }
@@ -36,5 +43,13 @@ public class Event implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
     }
 }

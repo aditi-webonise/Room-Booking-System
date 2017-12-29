@@ -27,7 +27,7 @@
                                     <input type="hidden" th:field="*{id}" />
                                     <br/><br/><br/>
                                     <label>Room</label>
-                                    <select th:field="*{roomId}" class="form-control" >
+                                    <select th:field="*{room.id}" class="form-control" >
                                         <option value="1">Confrence Room</option>
                                         <option value="2">Bean Bag Room</option>
                                         <option value="3">Charlie Chaplin Room</option>
@@ -35,10 +35,10 @@
                                     </select>
                                     <br/><br/><br/>
                                     <label>User Id</label>
-                                    <input type="text" th:field="*{userId}" class="form-control" readonly="readonly"/>
+                                    <input type="text" th:field="*{user.id}" class="form-control" readonly="readonly"/>
                                     <br/><br/><br/>
                                     <label>Event</label>
-                                    <select th:field="*{eventId}" class="form-control" >
+                                    <select th:field="*{event.id}" class="form-control" >
                                         <option value="1">Board Meeting</option>
                                         <option value="2">Client Call</option>
                                         <option value="3">Sprint Planning</option>

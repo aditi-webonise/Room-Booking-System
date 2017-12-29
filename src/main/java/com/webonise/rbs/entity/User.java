@@ -1,12 +1,16 @@
 package com.webonise.rbs.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -33,6 +37,9 @@ public class User implements Serializable {
 
     @Column(name = "role_id")
     private Long roleId;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Booking> bookings;
 
     public Long getId() {
         return id;
@@ -80,5 +87,13 @@ public class User implements Serializable {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public Set<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
     }
 }

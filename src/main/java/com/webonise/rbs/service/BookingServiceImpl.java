@@ -2,6 +2,7 @@ package com.webonise.rbs.service;
 
 import com.webonise.rbs.entity.Booking;
 import com.webonise.rbs.repository.BookingRepository;
+import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,19 @@ public class BookingServiceImpl implements BookingService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Boolean checkBookingAvailability(Booking booking) {
+        Long roomId = booking.room.getId();
+        Timestamp startTime = booking.getBookedFrom();
+        Timestamp endTime = booking.getBookedTo();
+        List<Booking> checkListOne = bookingRepository.findBookingsByRoomIdAndBookedFromIsBetween(roomId, startTime, endTime);
+        List<Booking> checkListTwo = bookingRepository.findBookingsByRoomIdAndBookedToIsBetween(roomId,startTime,endTime);
+        if (checkListOne.isEmpty() && checkListTwo.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

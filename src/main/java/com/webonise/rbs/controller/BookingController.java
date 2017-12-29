@@ -30,8 +30,10 @@ public class BookingController {
 
     @PostMapping
     public String saveBooking(@ModelAttribute("booking") Booking booking, final RedirectAttributes redirectAttributes) {
-        if(bookingService.bookRoom(booking)!= null) {
-            redirectAttributes.addFlashAttribute("saveBooking", "success");
+        if (bookingService.checkBookingAvailability(booking)) {
+            if (bookingService.bookRoom(booking)!=null) {
+                redirectAttributes.addFlashAttribute("saveBooking", "success");
+            }
         } else {
             redirectAttributes.addFlashAttribute("saveBooking", "failure");
         }
@@ -59,9 +61,11 @@ public class BookingController {
     }
 
     @PutMapping
-    public String updateBooking(@ModelAttribute("editBooking") Booking editBooking, final RedirectAttributes redirectAttributes) {
-        if(bookingService.editBooking(editBooking)!=null) {
-            redirectAttributes.addFlashAttribute("edit", "success");
+    public String updateBooking(@ModelAttribute("editBooking") Booking booking, final RedirectAttributes redirectAttributes) {
+        if (bookingService.checkBookingAvailability(booking)) {
+            if (bookingService.editBooking(booking) != null) {
+                redirectAttributes.addFlashAttribute("edit", "success");
+            }
         } else {
             redirectAttributes.addFlashAttribute("edit", "failure");
         }

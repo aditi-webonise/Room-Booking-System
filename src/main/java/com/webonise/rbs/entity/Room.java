@@ -1,11 +1,15 @@
 package com.webonise.rbs.entity;
 
 import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +28,9 @@ public class Room implements Serializable {
 
     @Column(name = "capacity")
     private int capacity;
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Booking> bookings;
 
     public Long getId() {
         return id;
@@ -47,5 +54,13 @@ public class Room implements Serializable {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public Set<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
     }
 }

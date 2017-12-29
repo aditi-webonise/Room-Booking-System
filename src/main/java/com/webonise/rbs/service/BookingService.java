@@ -10,4 +10,5 @@ public interface BookingService {
     Booking findByBookingId(Long bookingId);
     Booking editBooking(Booking booking);
     Boolean deleteByBookingId(Long bookingId);
+    Boolean checkBookingAvailability(Booking booking);
 }

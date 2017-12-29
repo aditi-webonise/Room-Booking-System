@@ -25,7 +25,7 @@ public class RoomController {
     public String savePage(Model model) {
         model.addAttribute("room", new Room());
         model.addAttribute("allRooms", roomService.getAllRooms());
-        return "viewRooms";
+        return "rooms";
     }
 
     @PostMapping
