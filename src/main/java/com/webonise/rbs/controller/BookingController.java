@@ -39,10 +39,10 @@ public class BookingController {
     }
 
     @GetMapping(value = "/{id}")
-    public String editBooking(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
-        Booking editBooking = bookingService.findById(id);
-        if(editBooking!=null) {
-            model.addAttribute("editBooking", editBooking);
+    public String displayBooking(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+        Booking booking = bookingService.findByBookingId(id);
+        if(booking!=null) {
+            model.addAttribute("editBooking", booking);
             return "editBooking";
         }
         return "redirect:/book";
@@ -50,7 +50,7 @@ public class BookingController {
 
     @DeleteMapping(value = "/{id}")
     public String deleteBooking( @PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
-        if(bookingService.deleteById(id)) {
+        if(bookingService.deleteByBookingId(id)) {
             redirectAttributes.addFlashAttribute("deletion", "success");
         } else {
             redirectAttributes.addFlashAttribute("deletion", "failure");

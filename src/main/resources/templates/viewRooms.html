@@ -47,9 +47,9 @@
                         <form th:object="${room}" action="#" method="post">
                             <div style="clear:both; height:10px;">
                                 <label>Room Name</label>
-                                <input type="text" th:field="*{name}" class="form-control" placeholder="Room Name"/>
+                                <input type="text" th:field="*{name}" class="form-control" placeholder="Room Name" required="required"/>
                                 <label>Capacity</label>
-                                <input type="text" th:field="*{capacity}" class="form-control" placeholder="Capacity"/>
+                                <input type="text" th:field="*{capacity}" class="form-control" placeholder="Capacity" required="required"/>
                                 <input type="submit" class="btn btn-danger pull-right" value="Save"/>
                             </div>
                         </form>
@@ -66,35 +66,35 @@
                     <div class="panel-body">
                         <table class="table table-bordered">
                             <thead>
-                            <tr class="btn-success">
-                                <th>Room Id</th>
-                                <th>Name</th>
-                                <th>Capacity</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
+                                <tr class="btn-success">
+                                    <th>Room Id</th>
+                                    <th>Name</th>
+                                    <th>Capacity</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr th:if="${#lists.isEmpty(allRooms)}" class="btn-warning">
-                                <td colspan="8" align="center">No Room Added Yet!!!</td>
-                            </tr>
-                            <tr th:each="room : ${allRooms}">
-                                <td th:text="${room.id}"></td>
-                                <td th:text="${room.name}"></td>
-                                <td th:text="${room.capacity}"></td>
-                                <td>
-                                    <form action="#" th:action="@{room/{id}(id=${room.id})}" th:method="get" >
-                                        <input type="hidden" value="edit" />
-                                        <button type="submit" id="submitButton">EDIT</button>
-                                    </form>
-                                </td>
-                                <td>
-                                    <form action="#" th:action="@{room/{id}(id=${room.id})}" th:method="delete" >
-                                        <input type="hidden" value="delete" />
-                                        <button type="submit" id="submitButton">DELETE</button>
-                                    </form>
-                                </td>
-                            </tr>
+                                <tr th:if="${#lists.isEmpty(allRooms)}" class="btn-warning">
+                                    <td colspan="8" align="center">No Room Added Yet!!!</td>
+                                </tr>
+                                <tr th:each="room : ${allRooms}">
+                                    <td th:text="${room.id}"></td>
+                                    <td th:text="${room.name}"></td>
+                                    <td th:text="${room.capacity}"></td>
+                                    <td>
+                                        <form action="#" th:action="@{room/{id}(id=${room.id})}" th:method="get" >
+                                            <input type="hidden" value="edit" />
+                                            <button type="submit" id="submitButton">EDIT</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="#" th:action="@{room/{id}(id=${room.id})}" th:method="delete" >
+                                            <input type="hidden" value="delete" />
+                                            <button type="submit" id="submitButton">DELETE</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

@@ -39,10 +39,10 @@ public class RoomController {
     }
 
     @GetMapping(value = "/{id}")
-    public String editRoom(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
-        Room editRoom = roomService.findById(id);
-        if(editRoom!=null) {
-            model.addAttribute("editRoom", editRoom);
+    public String displayRoom(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+        Room room = roomService.findByRoomId(id);
+        if(room!=null) {
+            model.addAttribute("editRoom", room);
             return "editRoom";
         }
         return "redirect:/room";
@@ -50,7 +50,7 @@ public class RoomController {
 
     @DeleteMapping(value = "/{id}")
     public String deleteRoom( @PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
-        if(roomService.deleteById(id)) {
+        if(roomService.deleteByRoomId(id)) {
             redirectAttributes.addFlashAttribute("deletion", "success");
         } else {
             redirectAttributes.addFlashAttribute("deletion", "failure");
@@ -67,4 +67,4 @@ public class RoomController {
         }
         return "redirect:/room";
     }
-} 
+}

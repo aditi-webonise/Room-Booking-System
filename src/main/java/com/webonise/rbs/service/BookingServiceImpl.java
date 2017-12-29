@@ -2,21 +2,21 @@ package com.webonise.rbs.service;
 
 import com.webonise.rbs.entity.Booking;
 import com.webonise.rbs.repository.BookingRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
 
 @Service
 @Transactional
 public class BookingServiceImpl implements BookingService {
 
     @Autowired
-    BookingRepository bookingRepository;
+    private BookingRepository bookingRepository;
 
     @Override
     public List<Booking> getAllBookings() {
-        return  bookingRepository.findAll();
+        return bookingRepository.findAll();
     }
 
     @Override
@@ -25,8 +25,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking findById(Long id) {
-        return bookingRepository.findOne(id);
+    public Booking findByBookingId(Long bookingId) {
+        return bookingRepository.findOne(bookingId);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Boolean deleteById(Long id) {
-        Booking booking = bookingRepository.findOne(id);
+    public Boolean deleteByBookingId(Long bookingId) {
+        Booking booking = bookingRepository.findOne(bookingId);
         if (booking != null) {
             bookingRepository.delete(booking);
             return true;
@@ -44,5 +44,3 @@ public class BookingServiceImpl implements BookingService {
         return false;
     }
 }
-
-

@@ -2,8 +2,11 @@ package com.webonise.rbs.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -14,6 +17,8 @@ public class Booking implements Serializable {
     private static final long serialVersionUID = -6864008650195849371L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "room_id")
@@ -25,9 +30,11 @@ public class Booking implements Serializable {
     @Column(name = "event_id")
     private Long eventId;
 
+    @Future(message = "Enter a date in future")
     @Column(name = "booked_from")
     private Timestamp bookedFrom;
 
+    @Future(message = "Enter a date in future")
     @Column(name = "booked_to")
     private Timestamp bookedTo;
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Room Booking System</title>
     </head>
@@ -7,6 +7,10 @@
         <div class="row"  style="margin-bottom:50px;">
             <div class="col-md-offset-2 col-md-8">
                 <div class="panel panel-success">
+                    <!--<form action="#" th:action="@{book/my/{id}(id=${booking.userId})}" th:method="get" >
+                        <input type="hidden" value="get" />
+                        <button type="submit" id="submitButton">Get my bookings</button>
+                    </form>-->
                     <div class="panel-heading">
                         <h3 class="panel-title">All Bookings</h3>
                     </div>
@@ -99,18 +103,18 @@
                         <form th:object="${booking}" action="#" method="post">
                             <div style="clear:both; height:10px;">
                                 <label>Booking Id</label>
-                                <input type="text" th:field="*{id}" class="form-control" placeholder="Booking Id"/>
+                                <input type="text" th:field="*{id}" class="form-control" placeholder="Booking Id" required="required"/>
                                 <br/><br/><br/>
                                 <label>Room</label>
                                 <select th:field="*{roomId}" class="form-control" >
-                                    <option value="1">Confrence Room</option>
+                                    <option value="1">Conference Room</option>
                                     <option value="2">Bean Bag Room</option>
                                     <option value="3">Charlie Chaplin Room</option>
                                     <option value="4">Joe Louis Room</option>
                                 </select>
                                 <br/><br/><br/>
                                 <label>User Id</label>
-                                <input type="text" th:field="*{userId}" class="form-control" placeholder="User Id"/>
+                                <input type="text" th:field="*{userId}" class="form-control" placeholder="User Id" required="required"/>
                                 <br/><br/><br/>
                                 <label>Event</label>
                                 <select th:field="*{eventId}" class="form-control" >
@@ -121,13 +125,13 @@
                                 </select>
                                 <br/><br/><br/>
                                 <label>Book from</label>
-                                <input type="datetime" th:field="*{bookedFrom}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss"/>
+                                <input type="datetime" th:field="*{bookedFrom}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss" required="required"/>
                                 <br/><br/><br/>
                                 <label>Book To</label>
-                                <input type="datetime" th:field="*{bookedTo}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss"/>
+                                <input type="datetime" th:field="*{bookedTo}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss" required="required"/>
                                 <br/><br/><br/>
                                 <label>Status</label>
-                                <input type="text" th:field="*{status}" class="form-control" placeholder="status"/>
+                                <input type="text" th:field="*{status}" class="form-control" placeholder="status" required="required"/>
                                 <br/><br/><br/>
                                 <input type="submit" class="btn btn-danger pull-right" value="Save"/>
                             </div>

@@ -20,8 +20,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room findById(Long id) {
-        return roomRepository.findOne(id);
+    public Room findByRoomId(Long roomId) {
+        return roomRepository.findOne(roomId);
     }
 
     @Override
@@ -35,12 +35,12 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Boolean deleteById(Long id) {
-        Room room = roomRepository.findOne(id);
+    public Boolean deleteByRoomId(Long roomId) {
+        Room room = roomRepository.findOne(roomId);
         if(room != null) {
             roomRepository.delete(room);
             return true;
         }
         return false;
     }
-} 
+}

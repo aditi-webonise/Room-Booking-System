@@ -7,7 +7,7 @@ public interface BookingService {
 
     List<Booking> getAllBookings();
     Booking bookRoom(Booking booking);
-    Booking findById(Long id);
+    Booking findByBookingId(Long bookingId);
     Booking editBooking(Booking booking);
-    Boolean deleteById(Long id);
+    Boolean deleteByBookingId(Long bookingId);
 }

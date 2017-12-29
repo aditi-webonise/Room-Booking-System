@@ -35,7 +35,7 @@
                                     </select>
                                     <br/><br/><br/>
                                     <label>User Id</label>
-                                    <input type="text" th:field="*{userId}" class="form-control"/>
+                                    <input type="text" th:field="*{userId}" class="form-control" readonly="readonly"/>
                                     <br/><br/><br/>
                                     <label>Event</label>
                                     <select th:field="*{eventId}" class="form-control" >
@@ -46,13 +46,13 @@
                                     </select>
                                     <br/><br/><br/>
                                     <label>Book from</label>
-                                    <input type="datetime" th:field="*{bookedFrom}" class="form-control"/>
+                                    <input type="datetime" th:field="*{bookedFrom}" class="form-control" required="required"/>
                                     <br/><br/><br/>
                                     <label>Book To</label>
-                                    <input type="datetime" th:field="*{bookedTo}" class="form-control"/>
+                                    <input type="datetime" th:field="*{bookedTo}" class="form-control" required="required"/>
                                     <br/><br/><br/>
                                     <label>Status</label>
-                                    <input type="text" th:field="*{status}" class="form-control"/>
+                                    <input type="text" th:field="*{status}" class="form-control" readonly="readonly"/>
                                     <br/><br/><br/>
                                     <input type="submit" class="btn btn-danger pull-right" value="Update"/>
                                 </div>
