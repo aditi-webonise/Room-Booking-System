@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Room Booking System</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <div th:if="${saveBooking eq 'failure'}">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>Error!</strong> Booking not updated.
+                        </div>
+                    </div>
+                    <div th:if="${saveBooking eq 'success'}">
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <strong>Success!</strong> Booking Updated Successfully.
+                        </div>
+                    </div>
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Edit Booking</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form th:object="${editBooking}" th:action="@{/book}" th:method="put">
+                                <div style="clear:both; height:10px;">
+                                    <input type="hidden" th:field="*{id}" />
+                                    <br/><br/><br/>
+                                    <label>Room</label>
+                                    <select th:field="*{roomId}" class="form-control" >
+                                        <option value="1">Confrence Room</option>
+                                        <option value="2">Bean Bag Room</option>
+                                        <option value="3">Charlie Chaplin Room</option>
+                                        <option value="4">Joe Louis Room</option>
+                                    </select>
+                                    <br/><br/><br/>
+                                    <label>User Id</label>
+                                    <input type="text" th:field="*{userId}" class="form-control" readonly="readonly"/>
+                                    <br/><br/><br/>
+                                    <label>Event</label>
+                                    <select th:field="*{eventId}" class="form-control" >
+                                        <option value="1">Board Meeting</option>
+                                        <option value="2">Client Call</option>
+                                        <option value="3">Sprint Planning</option>
+                                        <option value="4">Scrum Meeting</option>
+                                    </select>
+                                    <br/><br/><br/>
+                                    <label>Book from</label>
+                                    <input type="datetime" th:field="*{bookedFrom}" class="form-control" required="required"/>
+                                    <br/><br/><br/>
+                                    <label>Book To</label>
+                                    <input type="datetime" th:field="*{bookedTo}" class="form-control" required="required"/>
+                                    <br/><br/><br/>
+                                    <label>Status</label>
+                                    <input type="text" th:field="*{status}" class="form-control" readonly="readonly"/>
+                                    <br/><br/><br/>
+                                    <input type="submit" class="btn btn-danger pull-right" value="Update"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
