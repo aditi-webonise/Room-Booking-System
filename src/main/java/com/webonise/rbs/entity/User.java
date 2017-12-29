@@ -1,18 +1,18 @@
 package com.webonise.rbs.entity;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 8499806080574550313L;
+    private static final long serialVersionUID = -6480695978326672145L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +20,7 @@ public class User implements Serializable {
     private Long id;
 
     @Column(name = "employee_id")
-    private Long employeeId;
+    private String employeeId;
 
     @Column(name = "first_name")
     private String firstName;
@@ -32,7 +32,7 @@ public class User implements Serializable {
     private String password;
 
     @Column(name = "role_id")
-    private  Long roleId;
+    private Long roleId;
 
     public Long getId() {
         return id;
@@ -42,11 +42,11 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public Long getEmployeeId() {
+    public String getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(Long employeeId) {
+    public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
 
