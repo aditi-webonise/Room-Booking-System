@@ -13,7 +13,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public List<User> getAllUsers() {
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public User findUserById(Long id) {
         return userRepository.findOne(id);
     }
 
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean deleteUserById(Long id) {
         User user = userRepository.findOne(id);
         if (user != null) {
             userRepository.delete(user);

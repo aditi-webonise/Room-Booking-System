@@ -30,11 +30,14 @@ public class BookingController {
 
     @PostMapping
     public String saveBooking(@ModelAttribute("booking") Booking booking, final RedirectAttributes redirectAttributes) {
-        if(bookingService.bookRoom(booking)!= null) {
-            redirectAttributes.addFlashAttribute("saveBooking", "success");
+        if (bookingService.checkBookingAvailability(booking)) {
+            if (bookingService.bookRoom(booking)!=null) {
+                redirectAttributes.addFlashAttribute("saveBooking", "success");
+            }
         } else {
             redirectAttributes.addFlashAttribute("saveBooking", "failure");
         }
+
         return "redirect:/book";
     }
 

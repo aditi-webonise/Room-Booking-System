@@ -40,7 +40,7 @@ public class UserController {
 
     @GetMapping(value = "/{id}")
     public String editUser(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
-        User editUser = userService.findById(id);
+        User editUser = userService.findUserById(id);
         if (editUser != null) {
             model.addAttribute("editUser", editUser);
             return "edituser";
@@ -52,7 +52,7 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}")
     public String deleteUser(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
-        if (userService.deleteById(id)) {
+        if (userService.deleteUserById(id)) {
             redirectAttributes.addFlashAttribute("deletion", "success");
         } else {
             redirectAttributes.addFlashAttribute("deletion", "failure");
