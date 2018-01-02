@@ -1,5 +1,6 @@
 package com.webonise.rbs.controller;
 
+import com.webonise.rbs.constants.RedirectStatus;
 import com.webonise.rbs.entity.User;
 import com.webonise.rbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,40 +23,38 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public String savePage(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("allUsers", userService.getAllUsers());
+    public String savePage (Model model) {
+        model.addAttribute("user" , new User());
+        model.addAttribute("allUsers" , userService.getAllUsers());
         return "users";
     }
 
     @PostMapping
-    public String saveUser(@ModelAttribute("user") User user, final RedirectAttributes redirectAttributes) {
+    public String saveUser (@ModelAttribute("user") User user , final RedirectAttributes redirectAttributes) {
         if (userService.addUser(user) != null) {
-            redirectAttributes.addFlashAttribute("saveUser", "success");
+            redirectAttributes.addFlashAttribute("saveUser" , RedirectStatus.success.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("saveUser", "failure");
+            redirectAttributes.addFlashAttribute("saveUser" , RedirectStatus.failure.getStatus());
         }
         return "redirect:/user";
     }
 
     @GetMapping(value = "/{id}")
-    public String editUser(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+    public String editUser(@PathVariable("id") Long id , Model model) {
         User editUser = userService.findById(id);
         if (editUser != null) {
             model.addAttribute("editUser", editUser);
             return "edituser";
-        } else {
-            redirectAttributes.addFlashAttribute("status", "notfound");
         }
         return "redirect:/user";
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteUser(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+    public String deleteUser(@PathVariable("id") Long id , final RedirectAttributes redirectAttributes) {
         if (userService.deleteById(id)) {
-            redirectAttributes.addFlashAttribute("deletion", "success");
+            redirectAttributes.addFlashAttribute("deletion" , RedirectStatus.success.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("deletion", "failure");
+            redirectAttributes.addFlashAttribute("deletion" , RedirectStatus.failure.getStatus());
         }
         return "redirect:/user";
     }
@@ -63,9 +62,9 @@ public class UserController {
     @PutMapping
     public String updateUser(@ModelAttribute("editUser") User editUser, final RedirectAttributes redirectAttributes) {
         if (userService.editUser(editUser) != null) {
-            redirectAttributes.addFlashAttribute("edit", "success");
+            redirectAttributes.addFlashAttribute("edit" , RedirectStatus.success.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("edit", "failure");
+            redirectAttributes.addFlashAttribute("edit" , RedirectStatus.failure.getStatus());
         }
         return "redirect:/user";
     }

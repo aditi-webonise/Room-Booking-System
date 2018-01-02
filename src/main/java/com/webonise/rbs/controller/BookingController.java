@@ -1,7 +1,10 @@
 package com.webonise.rbs.controller;
 
+import com.webonise.rbs.constants.RedirectStatus;
 import com.webonise.rbs.entity.Booking;
 import com.webonise.rbs.service.BookingService;
+import com.webonise.rbs.service.EventService;
+import com.webonise.rbs.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,53 +24,59 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
+    @Autowired
+    private RoomService roomService;
+
+    @Autowired
+    private EventService eventService;
+
     @GetMapping
-    public String showBookings(Model model) {
-        model.addAttribute("booking", new Booking());
-        model.addAttribute("allBookings", bookingService.getAllBookings());
+    public String showBookings (Model model) {
+        model.addAttribute("booking" , new Booking());
+        model.addAttribute("allBookings" , bookingService.getAllBookings());
+        model.addAttribute("allRooms" , roomService.getAllRooms());
+        model.addAttribute("allEvents" , eventService.getAllEvents());
         return "bookings";
     }
 
     @PostMapping
-    public String saveBooking(@ModelAttribute("booking") Booking booking, final RedirectAttributes redirectAttributes) {
-        if (bookingService.checkBookingAvailability(booking)) {
-            if (bookingService.bookRoom(booking)!=null) {
-                redirectAttributes.addFlashAttribute("saveBooking", "success");
-            }
+    public String saveBooking (@ModelAttribute("booking") Booking booking, final RedirectAttributes redirectAttributes) {
+        if (bookingService.checkBookingAvailability(booking) && bookingService.bookRoom(booking) != null) {
+            redirectAttributes.addFlashAttribute("saveBooking" , RedirectStatus.success.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("saveBooking", "failure");
+            redirectAttributes.addFlashAttribute("saveBooking" , RedirectStatus.failure.getStatus());
         }
         return "redirect:/book";
     }
 
     @GetMapping(value = "/{id}")
-    public String displayBooking(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+    public String displayBooking (@PathVariable("id") Long id , Model model) {
+        model.addAttribute("allRooms" , roomService.getAllRooms());
+        model.addAttribute("allEvents" , eventService.getAllEvents());
         Booking booking = bookingService.findByBookingId(id);
-        if(booking!=null) {
-            model.addAttribute("editBooking", booking);
+        if(booking != null) {
+            model.addAttribute("editBooking" , booking);
             return "editBooking";
         }
         return "redirect:/book";
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteBooking( @PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+    public String deleteBooking (@PathVariable("id") Long id , final RedirectAttributes redirectAttributes) {
         if(bookingService.deleteByBookingId(id)) {
-            redirectAttributes.addFlashAttribute("deletion", "success");
+            redirectAttributes.addFlashAttribute("deletion" , RedirectStatus.success.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("deletion", "failure");
+            redirectAttributes.addFlashAttribute("deletion" , RedirectStatus.failure.getStatus());
         }
         return "redirect:/book";
     }
 
     @PutMapping
-    public String updateBooking(@ModelAttribute("editBooking") Booking booking, final RedirectAttributes redirectAttributes) {
-        if (bookingService.checkBookingAvailability(booking)) {
-            if (bookingService.editBooking(booking) != null) {
-                redirectAttributes.addFlashAttribute("edit", "success");
-            }
+    public String updateBooking (@ModelAttribute("editBooking") Booking booking , final RedirectAttributes redirectAttributes) {
+        if (bookingService.checkBookingAvailability(booking) && bookingService.editBooking(booking) != null) {
+            redirectAttributes.addFlashAttribute("edit" , RedirectStatus.success.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("edit", "failure");
+            redirectAttributes.addFlashAttribute("edit" , RedirectStatus.failure.getStatus());
         }
         return "redirect:/book";
     }
