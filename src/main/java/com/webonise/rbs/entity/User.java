@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Set;
@@ -33,8 +35,9 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role_id")
-    private Long roleId;
+    @OneToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @OneToMany(mappedBy = "user")
     private Set<Booking> bookings;
@@ -79,12 +82,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Set<Booking> getBookings() {

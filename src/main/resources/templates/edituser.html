@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Edit Employee</title>
-    </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-offset-3 col-md-6">
-                    <div th:if="${edit eq 'failure'}">
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <strong>Error!</strong> Employee Data Not Updated.
-                        </div>
+<head>
+    <title>Edit Employee</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div th:if="${edit eq 'failure'}">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error!</strong> Employee Data Not Updated.
                     </div>
-                    <div th:if="${edit eq 'success'}">
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <strong>Success!</strong> Employee Data Updated Successfully.
-                        </div>
+                </div>
+                <div th:if="${edit eq 'success'}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success!</strong> Employee Data Updated Successfully.
                     </div>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Edit Employee</h3>
-                        </div>
-                        <div class="panel-body">
-                            <form th:object="${editUser}" th:action="@{/user}" th:method="put">
-                                <div style="clear:both; display:block;height:10px;">
-                                    <input type="hidden" th:field="*{id}"/>
-                                    <label>Employee Id</label>
-                                    <input type="text" th:field="*{employeeId}" readonly="readonly" />
-                                    <br/><br/><br/>
-                                    <label>First Name</label>
-                                    <input type="text" th:field="*{firstName}" class="form-control" placeholder="First Name" required="required"/>
-                                    <br/><br/><br/>
-                                    <label>Last Name</label>
-                                    <input type="text" th:field="*{lastName}" class="form-control" placeholder="Last Name" required="required"/>
-                                    <br/><br/><br/>
-                                    <label>Password</label>
-                                    <input type="text" th:field="*{password}" class="form-control" placeholder="Password" required="required"/>
-                                    <br/><br/><br/>
-                                    <label>Role Id</label>
-                                    <input type="text" th:field="*{roleId}" class="form-control"/>
-                                    <br/><br/><br/>
-                                    <input type="submit" class="btn btn-danger pull-right" value="Update"/>
-                                </div>
-                            </form>
-                        </div>
+                </div>
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Edit Employee</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form th:object="${editUser}" th:action="@{/user}" th:method="put">
+                            <div style="clear:both; display:block;height:10px;">
+                                <input type="hidden" th:field="*{id}"/>
+                                <label>Employee Id</label>
+                                <input type="text" th:field="*{employeeId}" readonly="readonly" />
+                                <br/><br/><br/>
+                                <label>First Name</label>
+                                <input type="text" th:field="*{firstName}" class="form-control" placeholder="First Name" required="required"/>
+                                <br/><br/><br/>
+                                <label>Last Name</label>
+                                <input type="text" th:field="*{lastName}" class="form-control" placeholder="Last Name" required="required"/>
+                                <br/><br/><br/>
+                                <label>Password</label>
+                                <input type="text" th:field="*{password}" class="form-control" placeholder="Password" required="required"/>
+                                <br/><br/><br/>
+                                <label>Role Id</label>
+                                <input type="text" th:field="*{roleId}" class="form-control" placeholder="Role Id" required="required"/>
+                                <br/><br/><br/>
+                                <input type="submit" class="btn btn-danger pull-right" value="Update"/>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
