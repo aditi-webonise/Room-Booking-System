@@ -1,7 +1,6 @@
 package com.webonise.rbs.service;
 
 import com.webonise.rbs.entity.User;
-
 import java.util.List;
 
 public interface UserService {

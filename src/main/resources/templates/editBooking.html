@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Room Booking System</title>
     </head>
     <body>
+        <h2><a th:href="@{/admin}">Home</a></h2>
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
@@ -27,22 +28,16 @@
                                     <input type="hidden" th:field="*{id}" />
                                     <br/><br/><br/>
                                     <label>Room</label>
-                                    <select th:field="*{roomId}" class="form-control" >
-                                        <option value="1">Confrence Room</option>
-                                        <option value="2">Bean Bag Room</option>
-                                        <option value="3">Charlie Chaplin Room</option>
-                                        <option value="4">Joe Louis Room</option>
+                                    <select th:field="*{room.id}" class="form-control">
+                                        <option th:each="room : ${allRooms}" th:value="${room.id}" th:text="${room.name}" th:readonly="readonly"></option>
                                     </select>
                                     <br/><br/><br/>
                                     <label>User Id</label>
-                                    <input type="text" th:field="*{userId}" class="form-control" readonly="readonly"/>
+                                    <input type="text" th:field="*{user.id}" class="form-control" readonly="readonly"/>
                                     <br/><br/><br/>
                                     <label>Event</label>
-                                    <select th:field="*{eventId}" class="form-control" >
-                                        <option value="1">Board Meeting</option>
-                                        <option value="2">Client Call</option>
-                                        <option value="3">Sprint Planning</option>
-                                        <option value="4">Scrum Meeting</option>
+                                    <select th:field="*{event.id}" class="form-control">
+                                        <option th:each="event : ${allEvents}" th:value="${event.id}" th:text="${event.name}"></option>
                                     </select>
                                     <br/><br/><br/>
                                     <label>Book from</label>

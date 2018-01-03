@@ -48,16 +48,11 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Boolean checkBookingAvailability(Booking booking) {
-
-        Long roomId = booking.getRoomId();
+        Long roomId = booking.room.getId();
         Timestamp startTime = booking.getBookedFrom();
         Timestamp endTime = booking.getBookedTo();
-        List<Booking> checkListOne = bookingRepository.findBookingsByRoomIdAndBookedFromIsBetween(roomId, startTime, endTime);
-        List<Booking> checkListTwo = bookingRepository.findBookingsByRoomIdAndBookedToIsBetween(roomId, startTime, endTime);
-        if (checkListOne.isEmpty() && checkListTwo.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        List<Booking> checkValidStartTime = bookingRepository.findBookingsByRoomIdAndBookedFromIsBetween(roomId, startTime, endTime);
+        List<Booking> checkValidEndTime = bookingRepository.findBookingsByRoomIdAndBookedToIsBetween(roomId, startTime, endTime);
+        return checkValidStartTime.isEmpty() && checkValidEndTime.isEmpty();
     }
 }
