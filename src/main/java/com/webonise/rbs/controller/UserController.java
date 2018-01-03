@@ -2,6 +2,7 @@ package com.webonise.rbs.controller;
 
 import com.webonise.rbs.constants.RedirectStatus;
 import com.webonise.rbs.entity.User;
+import com.webonise.rbs.service.RoleService;
 import com.webonise.rbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,10 +23,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
     @GetMapping
     public String savePage (Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("allUsers", userService.getAllUsers());
+        model.addAttribute("allRoles", roleService.getAllRoles());
         return "users";
     }
 
@@ -40,7 +45,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public String editUser(@PathVariable("id") Long id, Model model) {
+    public String editUser (@PathVariable("id") Long id, Model model) {
+        model.addAttribute("allRoles", roleService.getAllRoles());
         User editUser = userService.findById(id);
         if (editUser != null) {
             model.addAttribute("editUser", editUser);
@@ -50,7 +56,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteUser(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
+    public String deleteUser (@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
         if (userService.deleteById(id)) {
             redirectAttributes.addFlashAttribute("deletion", RedirectStatus.SUCCESS.getStatus());
         } else {
@@ -60,7 +66,7 @@ public class UserController {
     }
 
     @PutMapping
-    public String updateUser(@ModelAttribute("editUser") User editUser, final RedirectAttributes redirectAttributes) {
+    public String updateUser (@ModelAttribute("editUser") User editUser, final RedirectAttributes redirectAttributes) {
         if (userService.editUser(editUser) != null) {
             redirectAttributes.addFlashAttribute("edit", RedirectStatus.SUCCESS.getStatus());
         } else {

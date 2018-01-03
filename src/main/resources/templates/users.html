@@ -13,6 +13,7 @@
         </style>
     </head>
     <body>
+        <h2><a th:href="@{/}">Home</a></h2>
         <div class="row"  style="margin-bottom:50px;">
             <div class="col-md-offset-2 col-md-8">
                 <div class="panel panel-success">
@@ -119,7 +120,10 @@
                                 <input type="password" th:field="*{password}" class="form-control" placeholder="Password" required="required"/>
                                 <br/><br/><br/>
                                 <label>Role Id</label>
-                                <input type="text" th:field="*{role.id}" class="form-control" placeholder="Role Id" required="required"/>
+                                <select th:field="*{role.id}" class="form-control">
+                                    <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.role}"></option>
+                                </select>
+                                <!--<input type="text" th:field="*{role.id}" class="form-control" placeholder="Role Id" required="required"/>-->
                                 <br/><br/><br/>
                                 <input type="submit" class="btn btn-danger pull-right" value="Save"/>
                             </div>
