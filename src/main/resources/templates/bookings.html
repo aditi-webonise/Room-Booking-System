@@ -3,8 +3,7 @@
     <head>
         <title>Room Booking System</title>
         <style>
-            th,td
-            {
+            th,td {
                 width:250px;
             }
             tbody {
@@ -13,7 +12,7 @@
         </style>
     </head>
     <body>
-        <h2><a th:href="@{/}">Home</a></h2>
+        <h2><a th:href="@{/admin}">Home</a></h2>
         <div class="row"  style="margin-bottom:50px;">
             <div class="col-md-offset-2 col-md-8">
                 <div class="panel panel-success">
@@ -76,7 +75,7 @@
                 </div>
                 <div th:if="${saveBooking eq 'success'}">
                     <div class="alert alert-success alert-dismissible" role="alert">
-                        <strong>Success!</strong> Room Booked Successfully.
+                        <strong>Success!!!!!</strong> Room Booked Successfully.
                     </div>
                 </div>
                 <!-- Deletion Alert Messages -->

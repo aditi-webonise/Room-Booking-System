@@ -16,4 +16,14 @@ public class WelcomeController {
     public ModelAndView error() {
         return new ModelAndView("error");
     }
+
+    @GetMapping(value = "/login")
+    public ModelAndView login() {
+        return new ModelAndView("login");
+    }
+
+    @GetMapping(value = "/admin")
+    public ModelAndView admin() {
+        return new ModelAndView("admindashboard");
+    }
 }

@@ -6,8 +6,8 @@ import java.util.List;
 public interface UserService {
 
     List<User> getAllUsers();
-    User findById(Long id);
+    User findUserById(Long id);
     User addUser(User user);
     User editUser(User user);
-    Boolean deleteById(Long id);
+    Boolean deleteUserById(Long id);
 }

@@ -45,9 +45,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public String editUser (@PathVariable("id") Long id, Model model) {
+    public String editUser(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+        User editUser = userService.findUserById(id);
         model.addAttribute("allRoles", roleService.getAllRoles());
-        User editUser = userService.findById(id);
         if (editUser != null) {
             model.addAttribute("editUser", editUser);
             return "edituser";
@@ -56,9 +56,9 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteUser (@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
-        if (userService.deleteById(id)) {
-            redirectAttributes.addFlashAttribute("deletion", RedirectStatus.SUCCESS.getStatus());
+    public String deleteUser(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+        if (userService.deleteUserById(id)) {
+            redirectAttributes.addFlashAttribute("deletion", "success");
         } else {
             redirectAttributes.addFlashAttribute("deletion", RedirectStatus.FAILURE.getStatus());
         }
