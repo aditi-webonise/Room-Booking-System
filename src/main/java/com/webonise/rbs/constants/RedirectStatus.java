@@ -2,8 +2,8 @@ package com.webonise.rbs.constants;
 
 public enum RedirectStatus {
 
-    success("success"),
-    failure("failure");
+    SUCCESS("success"),
+    FAILURE("failure");
 
     String status;
     RedirectStatus() {

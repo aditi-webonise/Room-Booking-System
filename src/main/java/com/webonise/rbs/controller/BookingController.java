@@ -32,51 +32,51 @@ public class BookingController {
 
     @GetMapping
     public String showBookings (Model model) {
-        model.addAttribute("booking" , new Booking());
-        model.addAttribute("allBookings" , bookingService.getAllBookings());
-        model.addAttribute("allRooms" , roomService.getAllRooms());
-        model.addAttribute("allEvents" , eventService.getAllEvents());
+        model.addAttribute("booking", new Booking());
+        model.addAttribute("allBookings", bookingService.getAllBookings());
+        model.addAttribute("allRooms", roomService.getAllRooms());
+        model.addAttribute("allEvents", eventService.getAllEvents());
         return "bookings";
     }
 
     @PostMapping
     public String saveBooking (@ModelAttribute("booking") Booking booking, final RedirectAttributes redirectAttributes) {
         if (bookingService.checkBookingAvailability(booking) && bookingService.bookRoom(booking) != null) {
-            redirectAttributes.addFlashAttribute("saveBooking" , RedirectStatus.success.getStatus());
+            redirectAttributes.addFlashAttribute("saveBooking", RedirectStatus.SUCCESS.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("saveBooking" , RedirectStatus.failure.getStatus());
+            redirectAttributes.addFlashAttribute("saveBooking", RedirectStatus.FAILURE.getStatus());
         }
         return "redirect:/book";
     }
 
     @GetMapping(value = "/{id}")
-    public String displayBooking (@PathVariable("id") Long id , Model model) {
-        model.addAttribute("allRooms" , roomService.getAllRooms());
-        model.addAttribute("allEvents" , eventService.getAllEvents());
+    public String displayBooking (@PathVariable("id") Long id, Model model) {
+        model.addAttribute("allRooms", roomService.getAllRooms());
+        model.addAttribute("allEvents", eventService.getAllEvents());
         Booking booking = bookingService.findByBookingId(id);
         if(booking != null) {
-            model.addAttribute("editBooking" , booking);
+            model.addAttribute("editBooking", booking);
             return "editBooking";
         }
         return "redirect:/book";
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteBooking (@PathVariable("id") Long id , final RedirectAttributes redirectAttributes) {
+    public String deleteBooking (@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
         if(bookingService.deleteByBookingId(id)) {
-            redirectAttributes.addFlashAttribute("deletion" , RedirectStatus.success.getStatus());
+            redirectAttributes.addFlashAttribute("deletion", RedirectStatus.SUCCESS.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("deletion" , RedirectStatus.failure.getStatus());
+            redirectAttributes.addFlashAttribute("deletion", RedirectStatus.FAILURE.getStatus());
         }
         return "redirect:/book";
     }
 
     @PutMapping
-    public String updateBooking (@ModelAttribute("editBooking") Booking booking , final RedirectAttributes redirectAttributes) {
+    public String updateBooking (@ModelAttribute("editBooking") Booking booking, final RedirectAttributes redirectAttributes) {
         if (bookingService.checkBookingAvailability(booking) && bookingService.editBooking(booking) != null) {
-            redirectAttributes.addFlashAttribute("edit" , RedirectStatus.success.getStatus());
+            redirectAttributes.addFlashAttribute("edit", RedirectStatus.SUCCESS.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("edit" , RedirectStatus.failure.getStatus());
+            redirectAttributes.addFlashAttribute("edit", RedirectStatus.FAILURE.getStatus());
         }
         return "redirect:/book";
     }

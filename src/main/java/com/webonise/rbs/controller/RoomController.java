@@ -24,47 +24,47 @@ public class RoomController {
 
     @GetMapping
     public String savePage (Model model) {
-        model.addAttribute("room" , new Room());
-        model.addAttribute("allRooms" , roomService.getAllRooms());
+        model.addAttribute("room", new Room());
+        model.addAttribute("allRooms", roomService.getAllRooms());
         return "rooms";
     }
 
     @PostMapping
     public String saveRoom (@ModelAttribute("room") Room room, final RedirectAttributes redirectAttributes) {
         if(roomService.addRoom(room) != null) {
-            redirectAttributes.addFlashAttribute("saveRoom" , RedirectStatus.success.getStatus());
+            redirectAttributes.addFlashAttribute("saveRoom", RedirectStatus.SUCCESS.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("saveRoom" , RedirectStatus.failure.getStatus());
+            redirectAttributes.addFlashAttribute("saveRoom", RedirectStatus.FAILURE.getStatus());
         }
         return "redirect:/room";
     }
 
     @GetMapping(value = "/{id}")
-    public String displayRoom (@PathVariable("id") Long id , Model model) {
+    public String displayRoom (@PathVariable("id") Long id, Model model) {
         Room room = roomService.findByRoomId(id);
         if(room != null) {
-            model.addAttribute("editRoom" , room);
+            model.addAttribute("editRoom", room);
             return "editRoom";
         }
         return "redirect:/room";
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteRoom (@PathVariable("id") Long id , final RedirectAttributes redirectAttributes) {
+    public String deleteRoom (@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
         if(roomService.deleteByRoomId(id)) {
-            redirectAttributes.addFlashAttribute("deletion" , RedirectStatus.success.getStatus());
+            redirectAttributes.addFlashAttribute("deletion", RedirectStatus.SUCCESS.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("deletion" , RedirectStatus.failure.getStatus());
+            redirectAttributes.addFlashAttribute("deletion", RedirectStatus.FAILURE.getStatus());
         }
         return "redirect:/room";
     }
 
     @PutMapping
-    public String updateRoom (@ModelAttribute("editRoom") Room editRoom , final RedirectAttributes redirectAttributes) {
+    public String updateRoom (@ModelAttribute("editRoom") Room editRoom, final RedirectAttributes redirectAttributes) {
         if(roomService.editRoom(editRoom) != null) {
-            redirectAttributes.addFlashAttribute("edit", RedirectStatus.success.getStatus());
+            redirectAttributes.addFlashAttribute("edit", RedirectStatus.SUCCESS.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("edit", RedirectStatus.failure.getStatus());
+            redirectAttributes.addFlashAttribute("edit", RedirectStatus.FAILURE.getStatus());
         }
         return "redirect:/room";
     }

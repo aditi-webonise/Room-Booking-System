@@ -24,23 +24,23 @@ public class UserController {
 
     @GetMapping
     public String savePage (Model model) {
-        model.addAttribute("user" , new User());
-        model.addAttribute("allUsers" , userService.getAllUsers());
+        model.addAttribute("user", new User());
+        model.addAttribute("allUsers", userService.getAllUsers());
         return "users";
     }
 
     @PostMapping
-    public String saveUser (@ModelAttribute("user") User user , final RedirectAttributes redirectAttributes) {
+    public String saveUser (@ModelAttribute("user") User user, final RedirectAttributes redirectAttributes) {
         if (userService.addUser(user) != null) {
-            redirectAttributes.addFlashAttribute("saveUser" , RedirectStatus.success.getStatus());
+            redirectAttributes.addFlashAttribute("saveUser", RedirectStatus.SUCCESS.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("saveUser" , RedirectStatus.failure.getStatus());
+            redirectAttributes.addFlashAttribute("saveUser", RedirectStatus.FAILURE.getStatus());
         }
         return "redirect:/user";
     }
 
     @GetMapping(value = "/{id}")
-    public String editUser(@PathVariable("id") Long id , Model model) {
+    public String editUser(@PathVariable("id") Long id, Model model) {
         User editUser = userService.findById(id);
         if (editUser != null) {
             model.addAttribute("editUser", editUser);
@@ -50,11 +50,11 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteUser(@PathVariable("id") Long id , final RedirectAttributes redirectAttributes) {
+    public String deleteUser(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
         if (userService.deleteById(id)) {
-            redirectAttributes.addFlashAttribute("deletion" , RedirectStatus.success.getStatus());
+            redirectAttributes.addFlashAttribute("deletion", RedirectStatus.SUCCESS.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("deletion" , RedirectStatus.failure.getStatus());
+            redirectAttributes.addFlashAttribute("deletion", RedirectStatus.FAILURE.getStatus());
         }
         return "redirect:/user";
     }
@@ -62,9 +62,9 @@ public class UserController {
     @PutMapping
     public String updateUser(@ModelAttribute("editUser") User editUser, final RedirectAttributes redirectAttributes) {
         if (userService.editUser(editUser) != null) {
-            redirectAttributes.addFlashAttribute("edit" , RedirectStatus.success.getStatus());
+            redirectAttributes.addFlashAttribute("edit", RedirectStatus.SUCCESS.getStatus());
         } else {
-            redirectAttributes.addFlashAttribute("edit" , RedirectStatus.failure.getStatus());
+            redirectAttributes.addFlashAttribute("edit", RedirectStatus.FAILURE.getStatus());
         }
         return "redirect:/user";
     }
