@@ -1,120 +1,136 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>User Functionality</title>
-</head>
-<body>
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-
-            <!-- Save Alert Messages -->
-            <div th:if="${saveUser eq 'failure'}">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>Error!</strong> Employee Data Not Saved.
-                </div>
-            </div>
-            <div th:if="${saveUser eq 'success'}">
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <strong>Success!</strong> Employee Data Saved Successfully.
-                </div>
-            </div>
-
-            <!-- Deletion Alert Messages -->
-            <div th:if="${deletion eq 'failure'}">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>Error!</strong> Employee Data Not Deleted.
-                </div>
-            </div>
-            <div th:if="${deletion eq 'success'}">
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <strong>Success!</strong> Employee Data Deleted Successfully.
-                </div>
-            </div>
-
-            <!-- Edit Alert Message -->
-            <div th:if="${status eq 'notfound'}">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>Error!</strong> Invalid Employee.
-                </div>
-            </div>
-            <div th:if="${edit eq 'failure'}">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>Error!</strong> Employee Data Not Edited.
-                </div>
-            </div>
-            <div th:if="${edit eq 'success'}">
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <strong>Success!</strong> Employee Data Edited Successfully.
-                </div>
-            </div>
-
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Add Employee</h3>
-                </div>
-                <div class="panel-body">
-                    <form th:object="${user}" action="#" method="post">
-                        <input type="text" th:field="*{employeeId}" class="form-control" placeholder="Employee Id"/>
-                        <div style="clear:both; display:block;height:10px;"></div>
-                        <input type="text" th:field="*{firstName}" class="form-control" placeholder="First Name"/>
-                        <div style="clear:both; display:block;height:10px;"></div>
-                        <input type="text" th:field="*{lastName}" class="form-control" placeholder="Last Name"/>
-                        <div style="clear:both; display:block;height:10px;"></div>
-                        <input type="text" th:field="*{password}" class="form-control" placeholder="Password"/>
-                        <div style="clear:both; display:block;height:10px;"></div>
-                        <input type="text" th:field="*{roleId}" class="form-control" placeholder="Role Id"/>
-                        <div style="clear:both; display:block;height:10px;"></div>
-                        <input type="submit" class="btn btn-danger pull-right" value="Save"/>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="row"  style="margin-bottom:50px;">
-        <div class="col-md-offset-2 col-md-8">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">All Employees</h3>
-                </div>
-                <div class="panel-body">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr class="btn-success">
-                            <th>Employee Id</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Role Id</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:if="${#lists.isEmpty(allUsers)}" class="btn-warning">
-                            <td colspan="4" align="center">No Employee Registered Yet!!!</td>
-                        </tr>
-                        <tr th:each="user : ${allUsers}">
-                            <td th:text="${user.employeeId}"></td>
-                            <td th:text="${user.firstName}"></td>
-                            <td th:text="${user.lastName}"></td>
-                            <td th:text="${user.roleId}"></td>
-                            <td>
-                                <form action="#" th:action="@{user/{id}(id=${user.id})}" th:method="get" >
-                                    <input type="hidden" value="edit" />
-                                    <button type="submit" id="submitButton">EDIT</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="#" th:action="@{user/{id}(id=${user.id})}" th:method="delete" >
-                                    <input type="hidden" value="delete" />
-                                    <button type="submit" id="submitButton">DELETE</button>
-                                </form>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+    <head>
+        <title>Room Booking System</title>
+        <style>
+            th,td
+            {
+                width:250px;
+            }
+            tbody {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h2><a th:href="@{/}">Home</a></h2>
+        <div class="row"  style="margin-bottom:50px;">
+            <div class="col-md-offset-2 col-md-8">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">All Employees</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr class="btn-success">
+                                <th>Employee Id</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Role </th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${#lists.isEmpty(allUsers)}" class="btn-warning">
+                                <td colspan="4" align="center">No Employee Registered Yet!!!</td>
+                            </tr>
+                            <tr th:each="user : ${allUsers}">
+                                <td th:text="${user.employeeId}"></td>
+                                <td th:text="${user.firstName}"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td th:text="${user.role.role}"></td>
+                                <td>
+                                    <form action="#" th:action="@{user/{id}(id=${user.id})}" th:method="get" >
+                                        <input type="hidden" value="edit" />
+                                        <button type="submit" id="submitButton">EDIT</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="#" th:action="@{user/{id}(id=${user.id})}" th:method="delete" >
+                                        <input type="hidden" value="delete" />
+                                        <button type="submit" id="submitButton">DELETE</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <!-- Save Alert Messages -->
+                <div th:if="${saveUser eq 'failure'}">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error!</strong> Employee Data Not Saved.
+                    </div>
+                </div>
+                <div th:if="${saveUser eq 'success'}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success!</strong> Employee Data Saved Successfully.
+                    </div>
+                </div>
+                <!-- Deletion Alert Messages -->
+                <div th:if="${deletion eq 'failure'}">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error!</strong> Employee Data Not Deleted.
+                    </div>
+                </div>
+                <div th:if="${deletion eq 'success'}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success!</strong> Employee Data Deleted Successfully.
+                    </div>
+                </div>
+                <!-- Edit Alert Message -->
+                <div th:if="${status eq 'notfound'}">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error!</strong> Invalid Employee.
+                    </div>
+                </div>
+                <div th:if="${edit eq 'failure'}">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error!</strong> Employee Data Not Edited.
+                    </div>
+                </div>
+                <div th:if="${edit eq 'success'}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success!</strong> Employee Data Edited Successfully.
+                    </div>
+                </div>
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Add Employee</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form th:object="${user}" action="#" method="post">
+                            <div style="clear:both; display:block;height:10px;">
+                                <label>Employee Id</label>
+                                <input type="text" th:field="*{employeeId}" class="form-control" placeholder="Employee Id" required="required"/>
+                                <br/><br/><br/>
+                                <label>First Name</label>
+                                <input type="text" th:field="*{firstName}" class="form-control" placeholder="First Name" required="required" />
+                                <br/><br/><br/>
+                                <label>Last Name</label>
+                                <input type="text" th:field="*{lastName}" class="form-control" placeholder="Last Name" required="required"/>
+                                <br/><br/><br/>
+                                <label>Password</label>
+                                <input type="password" th:field="*{password}" class="form-control" placeholder="Password" required="required"/>
+                                <br/><br/><br/>
+                                <label>Role Id</label>
+                                <select th:field="*{role.id}" class="form-control">
+                                    <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.role}"></option>
+                                </select>
+                                <!--<input type="text" th:field="*{role.id}" class="form-control" placeholder="Role Id" required="required"/>-->
+                                <br/><br/><br/>
+                                <input type="submit" class="btn btn-danger pull-right" value="Save"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

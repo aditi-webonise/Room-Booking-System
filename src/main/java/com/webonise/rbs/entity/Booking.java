@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Future;
 import java.io.Serializable;
@@ -21,15 +23,6 @@ public class Booking implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "room_id")
-    private Long roomId;
-
-    @Column(name = "user_id")
-    private Long userId;
-
-    @Column(name = "event_id")
-    private Long eventId;
-
     @Future(message = "Enter a date in future")
     @Column(name = "booked_from")
     private Timestamp bookedFrom;
@@ -41,36 +34,24 @@ public class Booking implements Serializable {
     @Column(name = "status")
     private String status;
 
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    public User user;
+
+    @ManyToOne
+    @JoinColumn(name = "roomId")
+    public Room room;
+
+    @ManyToOne
+    @JoinColumn(name = "eventId")
+    public Event event;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
     }
 
     public Timestamp getBookedFrom() {
@@ -95,5 +76,29 @@ public class Booking implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

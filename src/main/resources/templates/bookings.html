@@ -2,15 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Room Booking System</title>
+        <style>
+            th,td
+            {
+                width:250px;
+            }
+            tbody {
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
+        <h2><a th:href="@{/}">Home</a></h2>
         <div class="row"  style="margin-bottom:50px;">
             <div class="col-md-offset-2 col-md-8">
                 <div class="panel panel-success">
-                    <!--<form action="#" th:action="@{book/my/{id}(id=${booking.userId})}" th:method="get" >
-                        <input type="hidden" value="get" />
-                        <button type="submit" id="submitButton">Get my bookings</button>
-                    </form>-->
                     <div class="panel-heading">
                         <h3 class="panel-title">All Bookings</h3>
                     </div>
@@ -19,9 +25,9 @@
                             <thead>
                             <tr class="btn-success">
                                 <th>Booking Id</th>
-                                <th>Room Id</th>
-                                <th>User Id</th>
-                                <th>Event Id</th>
+                                <th>Room Name</th>
+                                <th>User Name</th>
+                                <th>Event </th>
                                 <th>Booked From</th>
                                 <th>Booked To</th>
                                 <th>Status</th>
@@ -31,13 +37,13 @@
                             </thead>
                             <tbody>
                             <tr th:if="${#lists.isEmpty(allBookings)}" class="btn-warning">
-                                <td colspan="4" align="center">No Bookings Yet!!!</td>
+                                <td colspan="8" align="center">No Bookings Yet!!!</td>
                             </tr>
                             <tr th:each="booking : ${allBookings}">
                                 <td th:text="${booking.id}"></td>
-                                <td th:text="${booking.roomId}"></td>
-                                <td th:text="${booking.userId}"></td>
-                                <td th:text="${booking.eventId}"></td>
+                                <td th:text="${booking.room.name}"></td>
+                                <td th:text="${booking.user.firstName}"></td>
+                                <td th:text="${booking.event.name}"></td>
                                 <td th:text="${booking.bookedFrom}"></td>
                                 <td th:text="${booking.bookedTo}"></td>
                                 <td th:text="${booking.status}"></td>
@@ -65,7 +71,7 @@
                 <!-- Save Alert Messages -->
                 <div th:if="${saveBooking eq 'failure'}">
                     <div class="alert alert-danger alert-dismissible" role="alert">
-                        <strong>Error!</strong> Room Not Booked.
+                        <strong>Sorry!</strong> Room unavailable for the entered time slot.
                     </div>
                 </div>
                 <div th:if="${saveBooking eq 'success'}">
@@ -87,7 +93,7 @@
                 <!-- Edit Alert Message -->
                 <div th:if="${edit eq 'failure'}">
                     <div class="alert alert-danger alert-dismissible" role="alert">
-                        <strong>Error!</strong> Booking Not Updated.
+                        <strong>Sorry!</strong> Room unavailable for the entered time slot.
                     </div>
                 </div>
                 <div th:if="${edit eq 'success'}">
@@ -102,26 +108,17 @@
                     <div class="panel-body">
                         <form th:object="${booking}" action="#" method="post">
                             <div style="clear:both; height:10px;">
-                                <label>Booking Id</label>
-                                <input type="text" th:field="*{id}" class="form-control" placeholder="Booking Id" required="required"/>
-                                <br/><br/><br/>
                                 <label>Room</label>
-                                <select th:field="*{roomId}" class="form-control" >
-                                    <option value="1">Conference Room</option>
-                                    <option value="2">Bean Bag Room</option>
-                                    <option value="3">Charlie Chaplin Room</option>
-                                    <option value="4">Joe Louis Room</option>
+                                <select th:field="*{room.id}" class="form-control">
+                                    <option th:each="room : ${allRooms}" th:value="${room.id}" th:text="${room.name}"></option>
                                 </select>
                                 <br/><br/><br/>
                                 <label>User Id</label>
-                                <input type="text" th:field="*{userId}" class="form-control" placeholder="User Id" required="required"/>
+                                <input type="text" th:field="*{user.id}" class="form-control" placeholder="User Id" required="required"/>
                                 <br/><br/><br/>
                                 <label>Event</label>
-                                <select th:field="*{eventId}" class="form-control" >
-                                    <option value="1">Board Meeting</option>
-                                    <option value="2">Client Call</option>
-                                    <option value="3">Sprint Planning</option>
-                                    <option value="4">Scrum Meeting</option>
+                                <select th:field="*{event.id}" class="form-control">
+                                    <option th:each="event : ${allEvents}" th:value="${event.id}" th:text="${event.name}"></option>
                                 </select>
                                 <br/><br/><br/>
                                 <label>Book from</label>
