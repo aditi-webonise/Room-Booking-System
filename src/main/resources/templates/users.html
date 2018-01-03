@@ -123,7 +123,6 @@
                                 <select th:field="*{role.id}" class="form-control">
                                     <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.role}"></option>
                                 </select>
-                                <!--<input type="text" th:field="*{role.id}" class="form-control" placeholder="Role Id" required="required"/>-->
                                 <br/><br/><br/>
                                 <input type="submit" class="btn btn-danger pull-right" value="Save"/>
                             </div>

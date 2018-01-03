@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface RoleService {
 
-    List<Role> getAllRoles();
+    List<Role> getAllRoles() throws Exception;
 }

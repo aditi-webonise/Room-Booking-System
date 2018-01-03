@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface BookingService {
 
-    List<Booking> getAllBookings();
-    Booking bookRoom(Booking booking);
-    Booking findByBookingId(Long bookingId);
-    Booking editBooking(Booking booking);
-    Boolean deleteByBookingId(Long bookingId);
-    Boolean checkBookingAvailability(Booking booking);
+    List<Booking> getAllBookings() throws Exception;
+    Booking bookRoom(Booking booking) throws Exception;
+    Booking findByBookingId(Long bookingId) throws Exception;
+    Booking editBooking(Booking booking) throws Exception;
+    Boolean deleteByBookingId(Long bookingId) throws Exception;
+    Boolean checkBookingAvailability(Booking booking) throws Exception;
 }

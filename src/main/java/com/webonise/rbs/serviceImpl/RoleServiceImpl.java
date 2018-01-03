@@ -1,7 +1,8 @@
-package com.webonise.rbs.service;
+package com.webonise.rbs.serviceImpl;
 
 import com.webonise.rbs.entity.Role;
 import com.webonise.rbs.repository.RoleRepository;
+import com.webonise.rbs.service.RoleService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,12 @@ public class RoleServiceImpl implements RoleService {
     private RoleRepository roleRepository;
 
     @Override
-    public List<Role> getAllRoles() {
-        return roleRepository.findAll();
+    public List<Role> getAllRoles() throws Exception {
+        try {
+            return roleRepository.findAll();
+        } catch (Exception ex) {
+            System.out.println("Error in fetching all roles.");
+            throw ex;
+        }
     }
 }

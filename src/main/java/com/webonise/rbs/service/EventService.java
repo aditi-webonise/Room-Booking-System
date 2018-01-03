@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface EventService {
 
-    List<Event> getAllEvents();
+    List<Event> getAllEvents() throws Exception;
 } 

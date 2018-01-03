@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface RoomService {
 
-    List<Room> getAllRooms();
-    Room findByRoomId(Long roomId);
-    Room addRoom(Room room);
-    Room editRoom(Room room);
-    Boolean deleteByRoomId(Long roomId);
+    List<Room> getAllRooms() throws Exception;
+    Room findByRoomId(Long roomId) throws Exception;
+    Room addRoom(Room room) throws Exception;
+    Room editRoom(Room room) throws Exception;
+    Boolean deleteByRoomId(Long roomId) throws Exception;
 }

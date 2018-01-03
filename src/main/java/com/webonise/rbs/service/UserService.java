@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> getAllUsers();
-    User findUserById(Long id);
-    User addUser(User user);
-    User editUser(User user);
-    Boolean deleteUserById(Long id);
+    List<User> getAllUsers() throws Exception;
+    User findUserById(Long id) throws Exception;
+    User addUser(User user) throws Exception;
+    User editUser(User user) throws Exception;
+    Boolean deleteUserById(Long id) throws Exception;
 }
