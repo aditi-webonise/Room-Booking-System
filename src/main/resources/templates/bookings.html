@@ -112,8 +112,10 @@
                                     <option th:each="room : ${allRooms}" th:value="${room.id}" th:text="${room.name}"></option>
                                 </select>
                                 <br/><br/><br/>
-                                <label>User Id</label>
-                                <input type="text" th:field="*{user.id}" class="form-control" placeholder="User Id" required="required"/>
+                                <label>User Name</label>
+                                <select th:field="*{user.id}" class="form-control">
+                                    <option th:each="user : ${allUsers}" th:value="${user.id}" th:text="${user.firstName}"></option>
+                                </select>
                                 <br/><br/><br/>
                                 <label>Event</label>
                                 <select th:field="*{event.id}" class="form-control">

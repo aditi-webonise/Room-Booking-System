@@ -5,6 +5,7 @@ import com.webonise.rbs.entity.Booking;
 import com.webonise.rbs.service.BookingService;
 import com.webonise.rbs.service.EventService;
 import com.webonise.rbs.service.RoomService;
+import com.webonise.rbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,12 +31,16 @@ public class BookingController {
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     public String showBookings (Model model) {
         model.addAttribute("booking", new Booking());
         model.addAttribute("allBookings", bookingService.getAllBookings());
         model.addAttribute("allRooms", roomService.getAllRooms());
         model.addAttribute("allEvents", eventService.getAllEvents());
+        model.addAttribute("allUsers", userService.getAllUsers());
         return "bookings";
     }
 
