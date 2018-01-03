@@ -27,7 +27,7 @@ public class UserController {
     private RoleService roleService;
 
     @GetMapping
-    public String savePage (Model model) {
+    public String savePage (Model model) throws Exception {
         model.addAttribute("user", new User());
         model.addAttribute("allUsers", userService.getAllUsers());
         model.addAttribute("allRoles", roleService.getAllRoles());
@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping
-    public String saveUser (@ModelAttribute("user") User user, final RedirectAttributes redirectAttributes) {
+    public String saveUser (@ModelAttribute("user") User user, final RedirectAttributes redirectAttributes) throws Exception {
         if (userService.addUser(user) != null) {
             redirectAttributes.addFlashAttribute("saveUser", RedirectStatus.SUCCESS.getStatus());
         } else {
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public String editUser(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+    public String editUser(@PathVariable("id") Long id, Model model) throws Exception {
         User editUser = userService.findUserById(id);
         model.addAttribute("allRoles", roleService.getAllRoles());
         if (editUser != null) {
@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteUser(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes, Model model) {
+    public String deleteUser(@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) throws Exception {
         if (userService.deleteUserById(id)) {
             redirectAttributes.addFlashAttribute("deletion", "success");
         } else {
@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @PutMapping
-    public String updateUser (@ModelAttribute("editUser") User editUser, final RedirectAttributes redirectAttributes) {
+    public String updateUser (@ModelAttribute("editUser") User editUser, final RedirectAttributes redirectAttributes) throws Exception {
         if (userService.editUser(editUser) != null) {
             redirectAttributes.addFlashAttribute("edit", RedirectStatus.SUCCESS.getStatus());
         } else {

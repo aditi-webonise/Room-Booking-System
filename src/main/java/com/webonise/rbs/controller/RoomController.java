@@ -23,14 +23,14 @@ public class RoomController {
     private RoomService roomService;
 
     @GetMapping
-    public String savePage (Model model) {
+    public String savePage (Model model) throws Exception {
         model.addAttribute("room", new Room());
         model.addAttribute("allRooms", roomService.getAllRooms());
         return "rooms";
     }
 
     @PostMapping
-    public String saveRoom (@ModelAttribute("room") Room room, final RedirectAttributes redirectAttributes) {
+    public String saveRoom (@ModelAttribute("room") Room room, final RedirectAttributes redirectAttributes) throws Exception {
         if(roomService.addRoom(room) != null) {
             redirectAttributes.addFlashAttribute("saveRoom", RedirectStatus.SUCCESS.getStatus());
         } else {
@@ -40,7 +40,7 @@ public class RoomController {
     }
 
     @GetMapping(value = "/{id}")
-    public String displayRoom (@PathVariable("id") Long id, Model model) {
+    public String displayRoom (@PathVariable("id") Long id, Model model) throws Exception {
         Room room = roomService.findByRoomId(id);
         if(room != null) {
             model.addAttribute("editRoom", room);
@@ -50,7 +50,7 @@ public class RoomController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteRoom (@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
+    public String deleteRoom (@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) throws Exception {
         if(roomService.deleteByRoomId(id)) {
             redirectAttributes.addFlashAttribute("deletion", RedirectStatus.SUCCESS.getStatus());
         } else {
@@ -60,7 +60,7 @@ public class RoomController {
     }
 
     @PutMapping
-    public String updateRoom (@ModelAttribute("editRoom") Room editRoom, final RedirectAttributes redirectAttributes) {
+    public String updateRoom (@ModelAttribute("editRoom") Room editRoom, final RedirectAttributes redirectAttributes) throws Exception {
         if(roomService.editRoom(editRoom) != null) {
             redirectAttributes.addFlashAttribute("edit", RedirectStatus.SUCCESS.getStatus());
         } else {

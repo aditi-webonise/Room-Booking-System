@@ -35,7 +35,7 @@ public class BookingController {
     private UserService userService;
 
     @GetMapping
-    public String showBookings (Model model) {
+    public String showBookings (Model model) throws Exception {
         model.addAttribute("booking", new Booking());
         model.addAttribute("allBookings", bookingService.getAllBookings());
         model.addAttribute("allRooms", roomService.getAllRooms());
@@ -45,7 +45,7 @@ public class BookingController {
     }
 
     @PostMapping
-    public String saveBooking (@ModelAttribute("booking") Booking booking, final RedirectAttributes redirectAttributes) {
+    public String saveBooking (@ModelAttribute("booking") Booking booking, final RedirectAttributes redirectAttributes) throws Exception {
         if (bookingService.checkBookingAvailability(booking) && bookingService.bookRoom(booking) != null) {
             redirectAttributes.addFlashAttribute("saveBooking", RedirectStatus.SUCCESS.getStatus());
         } else {
@@ -55,7 +55,7 @@ public class BookingController {
     }
 
     @GetMapping(value = "/{id}")
-    public String displayBooking (@PathVariable("id") Long id, Model model) {
+    public String displayBooking (@PathVariable("id") Long id, Model model) throws Exception {
         model.addAttribute("allRooms", roomService.getAllRooms());
         model.addAttribute("allEvents", eventService.getAllEvents());
         Booking booking = bookingService.findByBookingId(id);
@@ -67,7 +67,7 @@ public class BookingController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteBooking (@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) {
+    public String deleteBooking (@PathVariable("id") Long id, final RedirectAttributes redirectAttributes) throws Exception {
         if(bookingService.deleteByBookingId(id)) {
             redirectAttributes.addFlashAttribute("deletion", RedirectStatus.SUCCESS.getStatus());
         } else {
@@ -77,7 +77,7 @@ public class BookingController {
     }
 
     @PutMapping
-    public String updateBooking (@ModelAttribute("editBooking") Booking booking, final RedirectAttributes redirectAttributes) {
+    public String updateBooking (@ModelAttribute("editBooking") Booking booking, final RedirectAttributes redirectAttributes) throws Exception {
         if (bookingService.checkBookingAvailability(booking) && bookingService.editBooking(booking) != null) {
             redirectAttributes.addFlashAttribute("edit", RedirectStatus.SUCCESS.getStatus());
         } else {
